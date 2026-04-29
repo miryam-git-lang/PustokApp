@@ -1,0 +1,111 @@
+@model List<Slider>
+
+@{
+    ViewData["Title"] = "Slider";
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-image"></i>
+        </span> Sliders
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title m-0">Slider List</h4>
+                    <a asp-action="Create" class="btn btn-sm btn-primary">Create New</a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Order</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @if (Model.Count > 0)
+                        {
+                            foreach (var slider in Model)
+                            {
+                                <tr>
+                                    <td>@slider.Id</td>
+
+                                    <td>
+                                       
+                                        <div class="hero-partial-image image-right">
+                                            <img src="~/assets/image/bg-images/@slider.ImageUrl" alt="">
+                                        </div>
+                                        
+                                    </td>
+
+                                    <td>@slider.Title</td>
+
+                                    <td>
+                                        @(slider.Description?.Length > 25 
+                                            ? slider.Description.Substring(0, 25) + "..." 
+                                            : slider.Description)
+                                    </td>
+
+                                    <td>@slider.Order</td>
+
+                                    <td>
+                                        <a asp-action="Edit"
+                                           asp-route-id="@slider.Id"
+                                           class="btn btn-sm btn-warning">
+                                            Edit
+                                        </a>
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@slider.Id"
+                                           asp-area="Manage"
+                                           class="btn btn-sm btn-info slider-details">
+                                            Details
+                                        </a>
+
+                                        <form asp-action="Delete"
+                                              asp-route-id="@slider.Id"
+                                              asp-area="Manage"
+                                              method="post"
+                                              class="d-inline-block">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-danger deleteSlider">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">
+                                    No sliders found.
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace PustokApp.Areas.Manage.Views;
+namespace PustokApp.Areas.Manage.Views.Author;
 
-public class _ViewStart : PageModel
+public class Edit : PageModel
 {
     public void OnGet()
     {
