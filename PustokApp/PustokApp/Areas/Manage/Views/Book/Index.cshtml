@@ -1,0 +1,121 @@
+@model List<Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-book"></i>
+        </span> Books
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title m-0">Book List</h4>
+                    <a asp-action="Create" class="btn btn-sm btn-primary">Create New</a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Author</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>In Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @if (Model.Count > 0)
+                        {
+                            foreach (var book in Model)
+                            {
+                                <tr>
+                                    <!-- IMAGE -->
+                                    <td>
+                                        <img src="~/assets/image/products/@book.MainImageUrl" alt="">
+                                    </td>
+
+                                    <!-- NAME -->
+                                    <td>@book.Name</td>
+
+                                    <!-- AUTHOR -->
+                                    <td>@book.Author?.FullName</td>
+
+                                    <!-- PRICE -->
+                                    <td>@book.Price ₼</td>
+
+                                    <!-- DISCOUNT -->
+                                    <td>@book.DiscountPrcent %</td>
+
+                                    <!-- STOCK -->
+                                    <td>
+                                        @if (book.InStock)
+                                        {
+                                            <span class="badge bg-success">In Stock</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">Out</span>
+                                        }
+                                    </td>
+
+                                    <!-- ACTIONS -->
+                                    <td>
+                                        <a asp-action="Edit"
+                                           asp-route-id="@book.Id"
+                                           class="btn btn-sm btn-warning">
+                                            Edit
+                                        </a>
+
+                                        <form asp-action="Delete"
+                                              asp-route-id="@book.Id"
+                                              method="post"
+                                              class="d-inline-block">
+                                            @Html.AntiForgeryToken()
+
+                                            <a asp-action="Details"
+                                               asp-route-id="@book.Id"
+                                               asp-area="Manage"
+                                               class="btn btn-sm btn-info author-details">
+                                                Details
+                                            </a>
+                                            
+                                            
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-danger deleteBook">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">
+                                    No books found.
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

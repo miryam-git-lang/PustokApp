@@ -1,0 +1,118 @@
+@model Book
+@{
+    var authors = ViewBag.Authors as List<Author>;
+    var tags = ViewBag.Tags as List<Tag>;
+}
+<div class="page-header">
+    <h3 class="page-title">Create Book</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <form asp-action="Create" asp-area="Manage" method="post" enctype="multipart/form-data">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control"/>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control"/>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Price"></label>
+                        <input asp-for="Price" class="form-control"/>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input asp-for="IsNew" class="form-check-input"/>
+                        <label asp-for="IsNew" class="form-check-label"></label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input asp-for="IsFeatured" class="form-check-input"/>
+                        <label asp-for="IsFeatured" class="form-check-label"></label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input asp-for="InStock" class="form-check-input"/>
+                        <label asp-for="InStock" class="form-check-label"></label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Code"></label>
+                        <input asp-for="Code" class="form-control"/>
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="DiscountPrcent"></label>
+                        <input asp-for="DiscountPrcent" class="form-control"/>
+                        <span asp-validation-for="DiscountPrcent" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="TagIds"></label>
+                        <select asp-for="TagIds"
+                                class="form-control"
+                                asp-items="@(new MultiSelectList(tags, "Id", "Name"))"
+                                multiple>
+                        </select>
+                        <span asp-validation-for="TagIds" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="AuthorId"></label>
+                        <select asp-for="AuthorId"
+                                class="form-control"
+                                asp-items="@(new SelectList(authors, "Id", "FullName"))">
+                        </select>
+                        <span asp-validation-for="AuthorId" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="MainPhoto"></label>
+                        <input asp-for="MainPhoto" type="file" class="form-control" />
+                        <span asp-validation-for="MainPhoto" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="HoverPhoto"></label>
+                        <input asp-for="HoverPhoto" type="file" class="form-control" />
+                        <span asp-validation-for="HoverPhoto" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Photos">Additional Photos</label>
+                        <input asp-for="Photos" type="file" class="form-control" multiple />
+                        <span asp-validation-for="Photos" class="text-danger"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary mt-3">
+                        Create
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-light mt-3">
+                        Cancel
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

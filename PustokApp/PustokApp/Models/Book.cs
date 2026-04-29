@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PustokApp.Attributes;
 using PustokApp.Models.Common;
 
 namespace PustokApp.Models;
@@ -21,6 +22,27 @@ public class Book :BaseEntity
     public string? HoverImgeUrl { get; set; }
     public Guid AuthorId { get; set; }
     public Author? Author { get; set; }
-    public List<BookTag> BookTags { get; set; }
-    public List<BookImage> BookImages { get; set; }
+    public List<BookTag>? BookTags { get; set; }
+    public List<BookImage>? BookImages { get; set; }
+    [NotMapped]
+    [FileLenght(2)]
+    [FileType("image/jpeg", "image/png", "image/gif")]
+    public IFormFile? MainPhoto { get; set; }
+    [NotMapped]
+    [FileLenght(2)]
+    [FileType("image/jpeg", "image/png", "image/gif")]
+    public IFormFile? HoverPhoto { get; set; }  
+    [NotMapped]
+    [FileLenght(2)]
+    [FileType("image/jpeg", "image/png", "image/gif")]
+    public IFormFile[] Photos { get; set; }
+    [NotMapped]
+    public List<Guid> TagIds { get; set; }
+
+    public Book()
+    {
+        BookImages = [];
+        BookTags = [];
+    }
 }
+

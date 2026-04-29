@@ -105,7 +105,7 @@ namespace PustokApp.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookImage");
+                    b.ToTable("BookImages");
                 });
 
             modelBuilder.Entity("PustokApp.Models.BookTag", b =>
