@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PustokApp.Data;
+using PustokApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,20 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 8;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireLowercase = true;
+        options.User.RequireUniqueEmail = true;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+        options.Lockout.AllowedForNewUsers = true;
+        options.SignIn.RequireConfirmedEmail = true;
+    })
+    .AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
 
@@ -35,6 +51,8 @@ app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+
 
 
 app.Run();

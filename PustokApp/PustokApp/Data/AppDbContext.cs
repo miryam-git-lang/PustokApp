@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PustokApp.Models;
 
 namespace PustokApp.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<AppUser>(options)
 {
     public DbSet<Slider> Sliders { get; set; }
     public DbSet<Author> Authors { get; set; }

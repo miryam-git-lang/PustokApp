@@ -30,6 +30,10 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
+[/Users/miriam/Desktop/Academy Tasks/Backend/MiniApp/PustokApp/PustokApp/Areas/Manage/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvTWFuYWdlL1ZpZXdzL0FjY291bnQvTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/miriam/Desktop/Academy Tasks/Backend/MiniApp/PustokApp/PustokApp/Areas/Manage/Views/Author/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvTWFuYWdlL1ZpZXdzL0F1dGhvci9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
