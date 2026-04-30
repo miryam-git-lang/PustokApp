@@ -14,6 +14,17 @@ public class SliderController(AppDbContext context) : Controller
     }
 
     [HttpGet]
+    public IActionResult Details(Guid id)
+    {
+        var slider = context.Sliders.FirstOrDefault(a => a.Id == id);
+
+        if (slider == null)
+            return NotFound();
+
+        return PartialView("_DetailsModalPartial", slider);
+    }
+    
+    [HttpGet]
     public IActionResult Create()
     {
         return View();

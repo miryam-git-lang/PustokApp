@@ -88,7 +88,7 @@
                                             <a asp-action="Details"
                                                asp-route-id="@book.Id"
                                                asp-area="Manage"
-                                               class="btn btn-sm btn-info author-details">
+                                               class="btn btn-sm btn-info book-details">
                                                 Details
                                             </a>
                                             
@@ -119,3 +119,45 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="booksDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="bookDetailsModalContent"></div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).on("click", ".book-details", function (event) {
+            event.preventDefault();
+            let url = $(this).attr("href");
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    $("#bookDetailsModalContent").html(html);
+
+                    let modal = new bootstrap.Modal(document.getElementById("booksDetailsModal"));
+                    modal.show();
+                });
+        });
+
+        $(document).on("click", ".deleteBook", function (event) {
+            event.preventDefault();
+
+            let form = $(this).closest("form");
+
+            Swal.fire({
+                title: "Are you sure?",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                } else {
+                    Swal.fire("Cancelled", "", "info");
+                }
+            });
+        });
+    </script>
+}

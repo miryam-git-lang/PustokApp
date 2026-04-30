@@ -1,0 +1,58 @@
+@model Book
+
+<div class="modal-header">
+    <h5 class="modal-title">Author Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="mb-3">
+        <strong>Id:</strong>
+        <span>@Model.Id</span>
+    </div>
+    <div class="mb-0">
+        <strong>Full Name:</strong>
+        <span>@Model.Name</span>
+    </div>
+    <div class="mb-0">
+        <strong>Description:</strong>
+        <span>@Model.Description</span>
+    </div>
+    <div class="mb-0">
+        <strong>Price:</strong>
+        <span>@Model.Price</span>
+    </div>
+    <div class="mb-0">
+        <strong>Full Name:</strong>
+        <span>@Model.Name</span>
+    </div>
+    <div class="mb-0">
+        <strong>Status:</strong>
+        @if(Model.InStock)
+        {
+            <span class="badge bg-success">In Stock</span>
+        }
+        else
+        {
+            <span class="badge bg-danger">Out of Stock</span>
+        }
+    </div>
+    
+    <div class="mb-0">
+        <strong>Information:</strong>
+        @if(Model.IsNew)
+        {
+            <span class="badge bg-info">New</span>
+        }
+        else if(Model.IsFeatured)
+        {
+            <span class="badge bg-warning">Featured</span>
+        }
+        else
+        {
+            <span class="badge bg-secondary">Regular</span>
+        }
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

@@ -109,3 +109,45 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="slidersDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="sliderDetailsModalContent"></div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).on("click", ".slider-details", function (event) {
+            event.preventDefault();
+            let url = $(this).attr("href");
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    $("#sliderDetailsModalContent").html(html);
+
+                    let modal = new bootstrap.Modal(document.getElementById("slidersDetailsModal"));
+                    modal.show();
+                });
+        });
+
+        $(document).on("click", ".deleteSlider", function (event) {
+            event.preventDefault();
+
+            let form = $(this).closest("form");
+
+            Swal.fire({
+                title: "Are you sure?",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                } else {
+                    Swal.fire("Cancelled", "", "info");
+                }
+            });
+        });
+    </script>
+}

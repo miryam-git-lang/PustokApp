@@ -84,12 +84,22 @@
                         <label asp-for="MainPhoto"></label>
                         <input asp-for="MainPhoto" type="file" class="form-control" />
                         <span asp-validation-for="MainPhoto" class="text-danger"></span>
+                        @foreach (var photo in Model.BookImages)
+                        {
+                            <img src="~/assets/image/products/@photo.ImageUrl"/>
+                            <a asp-action="DeleteImage" asp-route-id="@photo.Id" class="btn btn-danger btn-sm ml-2">Delete</a>
+                        }
                     </div>
 
                     <div class="form-group">
                         <label asp-for="HoverPhoto"></label>
                         <input asp-for="HoverPhoto" type="file" class="form-control" />
                         <span asp-validation-for="HoverPhoto" class="text-danger"></span>
+                        @foreach (var photo in Model.BookImages)
+                        {
+                            <img src="~/assets/image/products/@photo.ImageUrl"/>
+                            <a asp-action="DeleteImage" asp-route-id="@photo.Id" class="btn btn-danger btn-sm ml-2">Delete</a>
+                        }
                     </div>
 
                     <div class="form-group">

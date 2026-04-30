@@ -14,6 +14,7 @@ public class BookController(AppDbContext context) : Controller
     {
         var books = context.Books
             .Include(b => b.Author)
+            .Include(b => b.BookTags)
             .ToList();
         return View(books);
     }
@@ -91,6 +92,32 @@ public class BookController(AppDbContext context) : Controller
         context.Books.Add(book);
         context.SaveChanges();
         return RedirectToAction("Index");
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(Guid id)
+    {
+        var book = context.Books.Find(id);
+
+        if (book == null)
+            return NotFound();
+        context.Books.Remove(book);
+        context.SaveChanges();
+
+        return RedirectToAction("Index", "Book", new { area = "Manage" });
+    }
+    
+    [HttpGet]
+    public IActionResult Details(Guid id)
+    {
+        var book = context.Books
+            .FirstOrDefault(a => a.Id == id);
+
+        if (book == null)
+            return NotFound();
+
+        return PartialView("_DetailsModalPartial", book);
     }
 
     public IActionResult Edit(Guid id)

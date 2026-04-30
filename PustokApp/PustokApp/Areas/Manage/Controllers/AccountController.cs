@@ -12,31 +12,31 @@ public class AccountController(
 ) : Controller
 {
     // GET
-    public async Task<IActionResult> CreateAdmin()
-    {
-        var existing = await userManager.FindByNameAsync("admin");
-        if (existing != null)
-            return Content("Admin already exists");
-        
-        AppUser admin = new AppUser
-        {
-            UserName = "admin",
-            FullName = "admin adminov",
-            Email = "admin@gmail.com"
-        };
-
-        var result = await userManager.CreateAsync(admin, "Admin123!");
-
-        if (!result.Succeeded)
-            return Json(result.Errors);
-
-        if (!await roleManager.RoleExistsAsync("Admin"))
-            await roleManager.CreateAsync(new IdentityRole("Admin"));
-
-        await userManager.AddToRoleAsync(admin, "Admin");
-
-        return Content("Admin created");
-    }
+    // public async Task<IActionResult> CreateAdmin()
+    // {
+    //     var existing = await userManager.FindByNameAsync("admin");
+    //     if (existing != null)
+    //         return Content("Admin already exists");
+    //     
+    //     AppUser admin = new AppUser
+    //     {
+    //         UserName = "admin",
+    //         FullName = "admin adminov",
+    //         Email = "admin@gmail.com"
+    //     };
+    //
+    //     var result = await userManager.CreateAsync(admin, "Admin123!");
+    //
+    //     if (!result.Succeeded)
+    //         return Json(result.Errors);
+    //
+    //     if (!await roleManager.RoleExistsAsync("Admin"))
+    //         await roleManager.CreateAsync(new IdentityRole("Admin"));
+    //
+    //     await userManager.AddToRoleAsync(admin, "Admin");
+    //
+    //     return Content("Admin created");
+    // }
     
     public async Task<IActionResult> CreateRole()
     {
