@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PustokApp.Models;
+using PustokApp.Services;
 using PustokApp.ViewModels.Users;
 
 namespace PustokApp.Controllers;
@@ -8,7 +9,8 @@ namespace PustokApp.Controllers;
 public class AccountController(
     UserManager<AppUser> userManager,
     SignInManager<AppUser> signInManager,
-    RoleManager<IdentityRole> roleManager
+    RoleManager<IdentityRole> roleManager,
+    IEmailService emailService
 ) : Controller
 {
     // GET
@@ -50,8 +52,14 @@ public class AccountController(
         }
 
         await userManager.AddToRoleAsync(user, "User");
-        // end email to user
-        return RedirectToAction("Login", "Account");
+
+        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
+        var link = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
+
+        await emailService.SendEmailAsync(user.Email, "Confirm your email", $"<h2>Confirm your account</h2><a href='{link}'>Click here to confirm</a>" );
+
+        return View("VerifyEmail", user.Email);
     }
 
     [HttpGet]
@@ -81,6 +89,12 @@ public class AccountController(
             return View(loginVm);
         }
 
+        if (!await userManager.IsEmailConfirmedAsync(user))
+        {
+            ModelState.AddModelError("", "Please confirm your email first");
+            return View(loginVm);
+        }
+        
         var result = await signInManager.PasswordSignInAsync(user, loginVm.Password,loginVm.RememberMe, true);
         if (!result.Succeeded)
         {
@@ -93,6 +107,23 @@ public class AccountController(
     {
         await signInManager.SignOutAsync();
         return RedirectToAction("Index", "Home");
+    }
+    
+    public async Task<IActionResult> ConfirmEmail(string userId, string token)
+    {
+        if (userId == null || token == null)
+            return BadRequest();
+
+        var user = await userManager.FindByIdAsync(userId);
+        if (user == null)
+            return NotFound();
+
+        var result = await userManager.ConfirmEmailAsync(user, token);
+
+        if (!result.Succeeded)
+            return BadRequest();
+
+        return View();
     }
     
 }

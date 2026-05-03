@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PustokApp.Areas.ViewModels;
 using PustokApp.Models;
+using PustokApp.Services;
 
 namespace PustokApp.Areas.Manage.Controllers;
 [Area("Manage")]
@@ -14,6 +15,7 @@ public class AccountController(
 ) : Controller
 {
     // GET
+    [AllowAnonymous]
     public async Task<IActionResult> CreateAdmin()
     {
         var existing = await userManager.FindByNameAsync("admin");
@@ -24,7 +26,8 @@ public class AccountController(
         {
             UserName = "admin",
             FullName = "admin adminov",
-            Email = "admin@gmail.com"
+            Email = "admin@gmail.com",
+            EmailConfirmed = true
         };
     
         var result = await userManager.CreateAsync(admin, "Admin123!");

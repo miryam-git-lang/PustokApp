@@ -232,3 +232,6 @@
 /Users/miriam/Desktop/Academy Tasks/Backend/MiniApp/PustokApp/PustokApp/obj/Debug/net10.0/PustokApp.genruntimeconfig.cache
 /Users/miriam/Desktop/Academy Tasks/Backend/MiniApp/PustokApp/PustokApp/obj/Debug/net10.0/ref/PustokApp.dll
 /Users/miriam/Desktop/Academy Tasks/Backend/MiniApp/PustokApp/PustokApp/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/miriam/Desktop/Academy Tasks/Backend/MiniApp/PustokApp/PustokApp/bin/Debug/net10.0/BouncyCastle.Cryptography.dll
+/Users/miriam/Desktop/Academy Tasks/Backend/MiniApp/PustokApp/PustokApp/bin/Debug/net10.0/MailKit.dll
+/Users/miriam/Desktop/Academy Tasks/Backend/MiniApp/PustokApp/PustokApp/bin/Debug/net10.0/MimeKit.dll
