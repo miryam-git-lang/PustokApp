@@ -10,8 +10,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
     public DbSet<Author> Authors { get; set; }
     public DbSet<Book> Books { get; set; }
     public DbSet<Tag> Tags { get; set; }
+    
     public DbSet<BookTag> BookTags { get; set; }
     public DbSet<BookImage> BookImages { get; set; }
+    
+    public DbSet<Setting> Settings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder  modelBuilder)
     {

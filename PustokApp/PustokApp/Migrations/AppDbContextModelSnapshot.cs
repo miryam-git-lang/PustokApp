@@ -325,6 +325,20 @@ namespace PustokApp.Migrations
                     b.ToTable("BookTags");
                 });
 
+            modelBuilder.Entity("PustokApp.Models.Setting", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Key");
+
+                    b.ToTable("Settings");
+                });
+
             modelBuilder.Entity("PustokApp.Models.Slider", b =>
                 {
                     b.Property<Guid>("Id")

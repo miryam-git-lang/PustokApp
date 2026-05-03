@@ -2,15 +2,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PustokApp.Data;
 using PustokApp.Models;
+using PustokApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); });
 
+builder.Services.AddScoped<LayoutService>();
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     {
         options.Password.RequireDigit = true;
@@ -21,9 +24,11 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
         options.User.RequireUniqueEmail = true;
         options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
         options.Lockout.AllowedForNewUsers = true;
-        options.SignIn.RequireConfirmedEmail = true;
+        options.SignIn.RequireConfirmedEmail = false;
     })
     .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options => { options.LoginPath = "/Manage/Account/Login"; });
 
 var app = builder.Build();
 
@@ -36,8 +41,10 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();
 
+app.UseRouting();
+app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -51,8 +58,6 @@ app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
-
 
 
 app.Run();

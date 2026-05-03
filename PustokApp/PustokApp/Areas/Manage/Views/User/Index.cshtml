@@ -1,0 +1,94 @@
+@model List<AppUser>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container mt-4">
+    <h2>Users</h2>
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FullName</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+
+                        <a asp-action="Detail"
+
+                           asp-route-id="@user.Id"
+
+                           class="btn btn-sm btn-info">
+
+                            Detail
+
+                        </a>
+
+                        <a asp-action="Edit"
+
+                           asp-route-id="@user.Id"
+
+                           class="btn btn-sm btn-warning">
+
+                            Edit
+
+                        </a>
+
+                        <a asp-action="ChangeRole"
+
+                           asp-route-id="@user.Id"
+
+                           class="btn btn-sm btn-primary">
+
+                            Change Role
+
+                        </a>
+
+                        <form asp-action="Delete"
+
+                              asp-route-id="@user.Id"
+
+                              method="post"
+
+                              class="d-inline-block">
+
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit"
+
+                                    class="btn btn-sm btn-danger">
+
+                                Delete
+
+                            </button>
+
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        }
+
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">No users found</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

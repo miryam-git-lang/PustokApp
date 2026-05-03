@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PustokApp.Data;
 using PustokApp.Models;
@@ -5,6 +6,7 @@ using PustokApp.Models;
 namespace PustokApp.Areas.Manage.Controllers;
 
 [Area("Manage")]
+[Authorize]
 public class SliderController(AppDbContext context) : Controller
 {
     public IActionResult Index()

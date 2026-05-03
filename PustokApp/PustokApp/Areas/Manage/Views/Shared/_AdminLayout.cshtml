@@ -76,30 +76,37 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
+                    <a asp-area="Manage" asp-controller="Dashboard" asp-action="Index" class="nav-link">
                         <span class="menu-title">Dashboard</span>
                         <i class="mdi mdi-home menu-icon"></i>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Author" asp-action="Index">
+                    <a asp-area="Manage" asp-controller="Author" asp-action="Index" class="nav-link">
                         <span class="menu-title">Author</span>
-                        <i class="mdi mdi-book menu-icon"></i>
+                        <i class="mdi mdi-feather menu-icon"></i>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Book" asp-action="Index">
+                    <a asp-area="Manage" asp-controller="Book" asp-action="Index" class="nav-link">
                         <span class="menu-title">Books</span>
                         <i class="mdi mdi-book menu-icon"></i>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Slider" asp-action="Index">
+                    <a asp-area="Manage" asp-controller="Slider" asp-action="Index" class="nav-link">
                         <span class="menu-title">Slider</span>
                         <i class="mdi mdi-image menu-icon"></i>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a asp-area="Manage" asp-controller="User" asp-action="Index" class="nav-link">
+                        <span class="menu-title">Users</span>
+                        <i class="mdi mdi-account menu-icon"></i>
                     </a>
                 </li>
             </ul>

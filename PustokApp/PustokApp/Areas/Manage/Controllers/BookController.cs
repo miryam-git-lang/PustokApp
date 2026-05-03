@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PustokApp.Data;
@@ -7,6 +8,7 @@ using PustokApp.Models;
 namespace PustokApp.Areas.Manage.Controllers;
 
 [Area("Manage")]
+[Authorize]
 public class BookController(AppDbContext context) : Controller
 {
     // GET
@@ -70,13 +72,13 @@ public class BookController(AppDbContext context) : Controller
             return View(book);
         }
 
-        book.MainImageUrl = mainPhoto.SaveFile("wwwroot/assets/image/bg-images");
-        book.HoverImgeUrl = hoverPhoto.SaveFile("wwwroot/assets/image/bg-images");
+        book.MainImageUrl = mainPhoto.SaveFile("wwwroot/assets/image/products");
+        book.HoverImgeUrl = hoverPhoto.SaveFile("wwwroot/assets/image/products");
         if (photos != null)
         {
             foreach (var photo in photos)
             {
-                var imageUrl = photo.SaveFile("wwwroot/assets/image/bg-images");
+                var imageUrl = photo.SaveFile("wwwroot/assets/image/products");
                 book.BookImages.Add(new BookImage { ImageUrl = imageUrl });
             }
         }
@@ -88,6 +90,7 @@ public class BookController(AppDbContext context) : Controller
                 book.BookTags.Add(new BookTag { TagId = tagId });
             }
         }
+
 
         context.Books.Add(book);
         context.SaveChanges();
@@ -208,19 +211,19 @@ public class BookController(AppDbContext context) : Controller
             var photos = book.Photos;
             if (mainPhoto != null)
             {
-                existingBook.MainImageUrl = mainPhoto.SaveFile("wwwroot/assets/image/bg-images");
+                existingBook.MainImageUrl = mainPhoto.SaveFile("wwwroot/assets/image/produts");
             }
 
             if (hoverPhoto != null)
             {
-                existingBook.HoverImgeUrl = hoverPhoto.SaveFile("wwwroot/assets/image/bg-images");
+                existingBook.HoverImgeUrl = hoverPhoto.SaveFile("wwwroot/assets/image/products");
             }
 
             if (photos != null)
             {
                 foreach (var photo in photos)
                 {
-                    var imageUrl = photo.SaveFile("wwwroot/assets/image/bg-images");
+                    var imageUrl = photo.SaveFile("wwwroot/assets/image/products");
                     existingBook.BookImages?.Add(new BookImage { ImageUrl = imageUrl });
                 }
             }
